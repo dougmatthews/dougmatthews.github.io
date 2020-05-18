@@ -93,7 +93,6 @@ MST.Model.Profile = Backbone.Model.extend({
 				try {
 					var $service = getMemberInfo().service;
 					$this.setService($service);
-					//$("#service").val($service).trigger("change");
 				} catch(ex) {
 					console.log("exception while setting service", ex)
 				}
@@ -130,7 +129,7 @@ MST.Model.Profile = Backbone.Model.extend({
   	},
   	clearMOSes : function() {
   		if(this.getMOSes().length > 0) {
-  			/* guaranteed to only be 1 */
+  			// guaranteed to only be 1
   			this.getMOSes().remove(this.getMOSes().at(0));
   		}
   	},
@@ -561,19 +560,18 @@ MST.Collection.MOS = Backbone.Collection.extend({
 
 MST.Model.Profile.Job = MST.Model.Profile.AbstractBase.extend({
 	job : null,
-	sourceId : null,
 	initialize: function() {
   	},
   	getId : function() {
   		return this.get("jobId")
   	},
-  	getJobURL : function(sourceId) {
+  	getJobURL : function() {
   		var href;
-  		if(parseBoolean(MST.ENV.TenantBean.isUseJobUrlFromJobData(sourceId)) && !$.isNullorUndefined(this.get("url"))) {
+  		if(parseBoolean(MST.ENV.TenantBean.isUseJobUrlFromJobData()) && !$.isNullorUndefined(this.get("url"))) {
   			href = this.get("url");
   		} else {
-  	  		var $format = MST.ENV.TenantBean.getJobURLFormat(sourceId);
-  	  		var useRefCode = parseBoolean(MST.ENV.TenantBean.isUseRefCodeForJobUrl(sourceId));
+  	  		var $format = MST.ENV.TenantBean.getJobURLFormat();
+  	  		var useRefCode = parseBoolean(MST.ENV.TenantBean.isUseRefCodeForJobUrl());
   	  		if (useRefCode) {
   	  	  		$format = ($format != null && $format != undefined) ? $format : "https://www.military.com/jobView/{0}-{1}-id-core-{2}?page_index=1";
   	  	  		var title = ($.trim(this.getTitle()).length > 0) ? this.getTitle().replace(/[.,\/#!$%\^&\*;:{}=_`~()\s]/g, '-') : "";

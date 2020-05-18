@@ -29,12 +29,9 @@
 
 		MST.ENV.APIURL = contextPath + '/mst-api';
 		MST.ENV.ContextPathWithFilter = contextPath + "/" + MST.ENV.TenantCode;
-		MST.ENV.showOccupationBlock = false;
 		MST.ENV.pageSize = 5;
-		MST.ENV.ShowAll = false;
-		window.MSTP = MST;
 
-		MST.ENV.ServiceCode = null;
+		MST.ENV.ServiceCode = null; // can be set to lock to specific service, for example "ARMY"
 	/*]]>*/
 </script>
 
@@ -191,7 +188,6 @@
 						    		
 						    		<div id="subspecialtiesEditSection" style="display: none" data-show-on-entity-edit='true'>
 						    			<div class="panel-heading edit-panel-heading">
-						    				<i class="material-icons container-arrow-left">keyboard_arrow_left</i>
 						    				<span class="container-text">Subspecialties</span>
 						    			</div>
 						    			<div class="panel-heading">
@@ -315,7 +311,6 @@
 						    		</div>
 						    		<div id="trainingEditSection" style="display: none" data-show-on-entity-edit='true'>
 						    			<div class="panel-heading edit-panel-heading">
-						    				<i class="material-icons container-arrow-left">keyboard_arrow_left</i>
 						    				<span class="container-text">Trainings</span>
 						    			</div>
 							    		<div class="panel-heading">
