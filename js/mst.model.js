@@ -70,7 +70,7 @@ MST.Model.TenantBean = Backbone.Model.extend({
 		return null;
 	},
 	getBackButtonText : function() {
-		return this.get("tenantBean").backButtonText;
+		return null;
 	}
 });
 
