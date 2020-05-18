@@ -57,7 +57,7 @@ MST.Model.TenantBean = Backbone.Model.extend({
 		return "BP USA";
 	},
 	getTenantId : function() {
-		return 84102;
+		return MST.ENV.TenantId?MST.ENV.TenantId:58061;
 	},
 	getJobURLFormat : function() {
 		return "https://jobs.military.com/jobview/GetJob.aspx?JobID={0}&intcid=MST";
