@@ -272,7 +272,7 @@ MST.Model.Profile = Backbone.Model.extend({
 	getRefineFormData : function() {
 		var $this = this;
 		var refineData = {};
-		refineData[58061] = {
+		refineData[5000026] = {
 			zipcode : $this.getLocation(),
 			keyword : $this.getKeyword(),
 			size : $this.getSize(),
