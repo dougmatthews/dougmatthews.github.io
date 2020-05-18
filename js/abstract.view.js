@@ -149,7 +149,7 @@ MST.View.MOS.Empty = MST.View.AbstractMosFilterView.extend({
 			}
 		});
 		
-		this.listenTo(MST.ENV.Profile, "change:skillsJobsAndOccupationData", function(profile) {
+		this.listenTo(MST.ENV.Profile, "change:skillsJobsData", function(profile) {
 			if($($this.inputSelector).length > 0) {
 				$("#queryRefine").val($($this.inputSelector).val());
 			}

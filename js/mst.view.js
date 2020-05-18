@@ -15,9 +15,9 @@ $(document).ready(function() {
 	MST.ENV.VIEW = new MST.View.Page();
 	var refineSection = new MST.View.RefineSection();
 	var firstTranslation = true;
-	refineSection.listenTo(MST.ENV.Profile, "change:skillsJobsAndOccupationData", function(profile) {
+	refineSection.listenTo(MST.ENV.Profile, "change:skillsJobsData", function(profile) {
 		$(".mst-search-contianer-padding").hide();
-		var data = profile.getSkillsJobsAndOccupationData();
+		var data = profile.getSkillsJobsData();
 		var skillMatches = data.skillMatches;
 		MST.SkillRepository.setSkillMatches(skillMatches);
 		this.render();
@@ -862,7 +862,7 @@ MST.View.RefineSection = MST.View.AbstractMosFilterView.extend({
 				$("#trainingCount").text("");
 				$(".mst-trainings-panel").hide();
 			}
-			MST.ENV.Profile.translateToSkillsJobsAndOccupations();
+			MST.ENV.Profile.translateToSkillsJobs();
 		});
   		
   		Backbone.on('subspecialtiesChange', function() {
@@ -881,7 +881,7 @@ MST.View.RefineSection = MST.View.AbstractMosFilterView.extend({
 				$("#subspecialtiesCount").text("");
 				$(".mst-subspecialties-panel").hide();
 			}
-  			MST.ENV.Profile.translateToSkillsJobsAndOccupations();
+  			MST.ENV.Profile.translateToSkillsJobs();
   		});
   		
 		Backbone.on('renderSkills', function () {
@@ -1046,9 +1046,9 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 	onStateChanged : function(fullTranslation) {
 		MST.ENV.Profile.resetPages();
 		if(fullTranslation === true) {
-			MST.ENV.Profile.translateToSkillsJobsAndOccupations();
+			MST.ENV.Profile.translateToSkillsJobs();
 		} else {
-			MST.ENV.Profile.translateToJobsAndOccupations();
+			MST.ENV.Profile.translateToJobs();
 		}
 	},
 	isPageEmpty : function() {

@@ -275,7 +275,7 @@ MST.Model.Profile = Backbone.Model.extend({
 	getPage : function() {
 		return this.get("page");
 	},
-	getSkillsJobsAndOccupationsData : function() {
+	getSkillsJobsData : function() {
 		return {
 			mosIds : this.getMosIDs(),
 			subspecialtyIdList : this.getSubspecialtyIDs(),
@@ -286,7 +286,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			filterData : this.getRefineFormData()
 		};
 	},
-	getJobsAndOccupationsData : function() {
+	getJobsData : function() {
 		return {
 			mosIds : this.getMosIDs(),
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches(),
@@ -303,68 +303,68 @@ MST.Model.Profile = Backbone.Model.extend({
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches()
 		};
 	},
-	translateToSkillsJobsAndOccupations : function() {
+	translateToSkillsJobs : function() {
 		var $this = this;
 		this.markTranslationInProgress();
 		var $this = this;
-		var requestData = this.getSkillsJobsAndOccupationsData();
+		var requestData = this.getSkillsJobsData();
 		
 		MST.ENV.VIEW.abortXhr();
 		var xhr = $.ajax({
-			url : MST.ENV.APIURL + "/translation/translateToSkillsJobsAndOccupations",
+			url : MST.ENV.APIURL + "/translation/translateToSkillsJobs",
 			dataType : "json",
 			contentType: "application/json",
 			type: "POST",
 			data : JSON.stringify(requestData),
 			success : function(data) {
 				$this.set("translationInProgress", false);
-				$this.set("skillsJobsAndOccupationData", data);
-				$this.trigger("skillsJobsAndOccupationDataSet");
+				$this.set("skillsJobsData", data);
+				$this.trigger("skillsJobsDataSet");
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				var ignore = (textStatus == "abort");
 				if(!ignore) { /* window.location changed */
 					MST.ENV.VIEW.error(xhr, textStatus, function() {
-						$this.translateToSkillsJobsAndOccupations();
+						$this.translateToSkillsJobs();
 					});
 				}
 			}
 		});
 		MST.ENV.VIEW.setXhr(xhr);
 	},
-	getSkillsJobsAndOccupationData : function() {
-		return this.get("skillsJobsAndOccupationData");
+	getSkillsJobsData : function() {
+		return this.get("skillsJobsData");
 	},
-	translateToJobsAndOccupations : function() {
+	translateToJobs : function() {
 		var $this = this;
 		this.markTranslationInProgress();
-		var requestData = this.getJobsAndOccupationsData();
+		var requestData = this.getJobsData();
 		MST.ENV.VIEW.abortXhr();
 		this.resetPages();
 		var xhr = $.ajax({
-			url : MST.ENV.APIURL + "/translation/translateToJobsAndOccupations",
+			url : MST.ENV.APIURL + "/translation/translateToJobs",
 			dataType : "json",
 			contentType: "application/json",
 			type: "POST",
 			data : JSON.stringify(requestData),
 			success : function(data) {
 				$this.set("translationInProgress", false);
-				$this.set("jobsAndOccupationData", data);
-				$this.trigger("jobsAndOccupationDataSet");
+				$this.set("jobsData", data);
+				$this.trigger("jobsDataSet");
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				var ignore = (textStatus == "abort");
 				if(!ignore) { /* window.location changed */
 					MST.ENV.VIEW.error(xhr, textStatus, function() {
-						$this.translateToJobsAndOccupations();
+						$this.translateToJobs();
 					});
 				}
 			}
 		});
 		MST.ENV.VIEW.setXhr(xhr);
 	},
-	getJobsAndOccupationData : function() {
-		return this.get("jobsAndOccupationData");
+	getJobsData : function() {
+		return this.get("jobsData");
 	},
 	refineJobs : function() {
 		var $this = this;

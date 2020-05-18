@@ -158,14 +158,14 @@ $(document).ready(function() {
 				var $this = this;
 		    	this.reset();
 	  		    
-				this.listenTo(MST.ENV.Profile, "skillsJobsAndOccupationDataSet", function() {
-					var data = MST.ENV.Profile.getSkillsJobsAndOccupationData();
+				this.listenTo(MST.ENV.Profile, "skillsJobsDataSet", function() {
+					var data = MST.ENV.Profile.getSkillsJobsData();
 					this.reset();
 					this.parseData(data);
 				});
 				
-				this.listenTo(MST.ENV.Profile, "jobsAndOccupationDataSet", function() {
-					var data = MST.ENV.Profile.getJobsAndOccupationData();
+				this.listenTo(MST.ENV.Profile, "jobsDataSet", function() {
+					var data = MST.ENV.Profile.getJobsData();
 					this.reset();
 					this.parseData(data);
 				});
