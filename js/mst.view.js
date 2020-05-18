@@ -6,16 +6,12 @@ MST = window.MST || {};
 MST.Model = window.MST.Model || {};
 MST.View = window.MST.View || {};
 MST.View.OVERRIDE = MST.View.OVERRIDE || {};
-
-/* legacy */
-MSTP = window.MSTP || {};
-MSTP.Profile = window.MSTP.Profile || {};
+MST.View.OVERRIDE.bindAutocomplete = MST.View.OVERRIDE.bindAutocomplete || function() {}
 
 $(document).ready(function() {
-	/* moved from mst.model.js */
 	MST.ENV.Profile = new MST.Model.Profile();
-	/* end moved from mst.model.js */
-	
+	MST.View.OVERRIDE.bindAutocomplete();
+
 	MST.ENV.VIEW = new MST.View.Page();
 	var refineSection = new MST.View.RefineSection();
 	var firstTranslation = true;
@@ -103,7 +99,7 @@ MST.View.EditSkillSection = MST.View.AbstractEditEntitySection.extend({
 
 			},
 			select: function(event, ui) {
-				$this.addSkill(MSTP.SkillMatch.newInstance(ui.item.id, ui.item.label));
+				$this.addSkill(MST.SkillMatch.newInstance(ui.item.id, ui.item.label));
 				setTimeout(function() {$($this.inputSelector).val("");}, 500);
 				$this.draw();
 			}
@@ -138,7 +134,7 @@ MST.View.EditSkillSection = MST.View.AbstractEditEntitySection.extend({
 		this.customSkills = [];
 		this.deletedSkills = [];
 		
-		var skillMatches = MSTP.SkillRepository.getSkillMatches();
+		var skillMatches = MST.SkillRepository.getSkillMatches();
 		if($.isArray(skillMatches)) {
 			for(var i = 0; i < skillMatches.length; i++) {
 				var skillMatch = skillMatches[i];
@@ -891,12 +887,12 @@ MST.View.RefineSection = MST.View.AbstractMosFilterView.extend({
 		Backbone.on('renderSkills', function () {
 			var $skillList = $this.$el.find("#skillList"); 
 			$skillList.empty();
-			if($.isArray(MSTP.SkillRepository.getSkillMatches())) {
-				$("#skillCount").text("(" + MSTP.SkillRepository.getSkillMatches().length + ")");
+			if($.isArray(MST.SkillRepository.getSkillMatches())) {
+				$("#skillCount").text("(" + MST.SkillRepository.getSkillMatches().length + ")");
 				var $ul = $(document.createElement("ul"));
 				$skillList.append($ul);
 			
-				$.each(MSTP.SkillRepository.getSkillMatches(), function(idx, match) {
+				$.each(MST.SkillRepository.getSkillMatches(), function(idx, match) {
 					var skill = match.skillMatch.skill;
 					$ul.append(
 						$(document.createElement("li")).text(skill.name).attr("id", "selected-skill-" + skill.id)
@@ -993,7 +989,7 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 			});
 		}
 		
-		MSTP.getMaxPaygradeOnPage = function() {return null;};
+		MST.getMaxPaygradeOnPage = function() {return null;};
 		
 		$("#profile-link").click(function() {
 			var $mos = MST.ENV.Profile.getMOSes().at(0);
@@ -1031,8 +1027,8 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 			$("#service").val(MST.ENV.ServiceCode).selectmenu("refresh");
 		}
 		
-		if($.isArray(MSTP.ENV.MOSList) && MSTP.ENV.MOSList.length > 0) {
-			var $mos = new MST.Model.Profile.MOS(MSTP.ENV.MOSList[0]);
+		if($.isArray(MST.ENV.MOSList) && MST.ENV.MOSList.length > 0) {
+			var $mos = new MST.Model.Profile.MOS(MST.ENV.MOSList[0]);
 			MST.ENV.Profile.getMOSes().add($mos);
 			$("#query").val($mos.getAutocompleteString());
 		}
@@ -1091,7 +1087,6 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 		this.jobView.hideSpinner();
 	}
 });
-
 
 (function( $ ){
 	var $radioHtml = "<div class='ui-controlgroup-controls'>" +

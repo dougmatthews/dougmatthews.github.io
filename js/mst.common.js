@@ -65,9 +65,7 @@ String.prototype.format = function() {
     return s;
 };
 
-MSTP = window.MSTP || {};
-
-MSTP.SkillMatch = {
+MST.SkillMatch = {
 	/* returns a plain javascript object representing a skill match */
 	/* NOT prototyped since this is meant to be sent to the server */
 	newInstance : function(id, name) {
@@ -90,7 +88,7 @@ MSTP.SkillMatch = {
 	}
 };
 
-MSTP.SkillRepository = {
+MST.SkillRepository = {
 	_skillMatches : null,
 	_deleteHistory : null,
 	setData : function(skillMatches, deleteHistory) {
@@ -225,25 +223,6 @@ MSTP.SkillRepository = {
 			}
 		}
 	},
-	/*
-	purgePaygradeHistory : function() {
-		for(var i in MSTP.ENV.paygradeLookupMap) {
-			this._purgeHistory(parseInt(i), "PAY");
-		}
-	},
-	purgeMosHistory : function(idArray) {
-		this._purgeHistory(idArray, "MOS");
-	},
-	purgeTrainingHistory : function(idArray) {
-		this._purgeHistory(idArray, "TRN");
-	},
-	purgeSubspecialtyHistory : function(idArray) {
-		this._purgeHistory(idArray, "SUB");
-	},
-	purgeExperienceHistory : function(idArray) {
-		this._purgeHistory(idArray, "OCC");
-	},
-	*/
 	_purgeSkillFromHistory : function(id) {
 		var that = this;
 		if(this._deleteHistory != null || this._deleteHistory != undefined) {
@@ -371,8 +350,7 @@ MSTP.SkillRepository = {
 
 	var privateMethods = {
 		getEvar11Value : function() {
-			var suffix = (window.location.pathname.toLowerCase().indexOf("/career-discovery") > -1) ? "Career_Discovery" : "MST";
-			return MSTP.ENV.TenantCode + "_" + suffix;
+			return MST.ENV.TenantCode + "_MST";
 		},
 		encode : function(arg) {
 			try {

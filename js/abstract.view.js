@@ -5,17 +5,9 @@ window.console.warn = window.console.warn || function() {};
 MST = window.MST || {};
 MST.Model = window.MST.Model || {};
 MST.View = window.MST.View || {};
-MST.View.OVERRIDE = MST.View.OVERRIDE || {};
-MST.View.OVERRIDE.bindAutocomplete = function() {}
-
-/* legacy */
-MSTP = window.MSTP || {};
-MSTP.Profile = window.MSTP.Profile || {};
-
 
 MST.View.AbstractView = Backbone.View.extend({
 	initialize : function(args) {
-		
 	},
 	getSpinner : function() {
 		return this.$el.find(".panel-status");
@@ -30,10 +22,8 @@ MST.View.AbstractView = Backbone.View.extend({
 
 MST.View.Panel = MST.View.AbstractView.extend({
 	initialize : function(args) {
-		
 	},
 	render : function() {
-
 	}
 });
 
@@ -162,7 +152,6 @@ MST.View.MOS.Empty = MST.View.AbstractMosFilterView.extend({
 		this.listenTo(MST.ENV.Profile, "change:skillsJobsAndOccupationData", function(profile) {
 			if($($this.inputSelector).length > 0) {
 				$("#queryRefine").val($($this.inputSelector).val());
-//				$("#serviceRefine").val($($this.serviceSelect).val()).selectmenu("refresh");
 			}
 			$("[data-remove-on-mos-add]").remove();
 			$("#searchContainer").addClass("hidden-sm-down"); /* hide on mobile from now on */
@@ -205,35 +194,24 @@ MST.View.AbstractPageView = MST.View.AbstractView.extend({
 		var $this = this;
 	},
 	onServiceChange : function() {
-	
 	}
 });
 
 $(document).ready(function() {
-	if(MST.ENV.ServiceCode == null) {
-		if($.isFunction(window.getMemberInfo)) {
-			try {
-				var $service = getMemberInfo().service;
-				$("#service").val($service).trigger("change");
-			} catch(ex) {
-				console.log("exception while setting service", ex)
-			}
-		}
-	} else {
+	if(MST.ENV.ServiceCode != null) {
 		$("#service").val(MST.ENV.ServiceCode).trigger("change");
 	}
-	
-	
+
 	$("#service").selectmenu({
 		change : function(event, ui) {
 			MST.ENV.Profile.setService(ui.item.value);
 			MST.ENV.VIEW.onServiceChange();
 		}
 	});
-	
-	/* plugin changes the 'for' tag of the label, which screws with 501 compliance */
+
+	/* plugin changes the 'for' tag of the label, which complicates 501 compliance */
 	$("label[for='service-button']").attr("for", "service");
-	
+
 	/*
 	 *  if the service is visible, that means that the selectmenu being used is jquery mobile specific 
 	 */
