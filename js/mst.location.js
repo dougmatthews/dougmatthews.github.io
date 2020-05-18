@@ -1,4 +1,4 @@
-// can be overridden
+// this file only needed for location autocomplete
 MST = window.MST || {};
 MST.View = window.MST.View || {};
 MST.View.OVERRIDE = MST.View.OVERRIDE || {};
