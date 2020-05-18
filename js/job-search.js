@@ -74,7 +74,6 @@ var columns = [{
   })
 }];
 
-	    	
 $(document).ready(function() {
 	$(".viewMore").click(function() {
 		if (MST.ENV.Jobs) {
@@ -84,8 +83,8 @@ $(document).ready(function() {
 	$(window).scroll(function(){
 	    if ($(window).scrollTop() == $(document).height()-$(window).height()){
 	    }
-	});	
-	Backbone.on('tenantReady', function () {
+	});
+	//Backbone.on('tenantReady', function () {
 
 		var Jobs = Backbone.Model.extend({
 		      parseData: function (data) {
@@ -113,7 +112,6 @@ $(document).ready(function() {
 		    	  	
 		    		  $("#resultsContainer").show();
 		    		  $("#refineContainer").show();
-		    		  //$("#searchContainer").hide();
 		    		  
 		    		  var page = MST.ENV.Profile.getPage();
 		    		  var size = this.mCollection.state.pageSize;
@@ -167,7 +165,6 @@ $(document).ready(function() {
 				});
 				
 				this.listenTo(MST.ENV.Profile, "jobsAndOccupationDataSet", function() {
-					//MST.ENV.Profile.resetPages();
 					var data = MST.ENV.Profile.getJobsAndOccupationData();
 					this.reset();
 					this.parseData(data);
@@ -208,7 +205,7 @@ $(document).ready(function() {
 		  });
 
 		MST.ENV.Jobs = new Jobs();
-	});
+	//});
 });
 
 $.ajaxSetup({
