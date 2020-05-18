@@ -303,7 +303,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches()
 		};
 	},
-	translateToSkillsJobsAndOccupations : function() {
+	translateToSkillsJobs : function() {
 		var $this = this;
 		this.markTranslationInProgress();
 		var $this = this;
@@ -325,7 +325,7 @@ MST.Model.Profile = Backbone.Model.extend({
 				var ignore = (textStatus == "abort");
 				if(!ignore) { /* window.location changed */
 					MST.ENV.VIEW.error(xhr, textStatus, function() {
-						$this.translateToSkillsJobsAndOccupations();
+						$this.translateToSkillsJobs();
 					});
 				}
 			}
@@ -335,7 +335,7 @@ MST.Model.Profile = Backbone.Model.extend({
 	getSkillsJobsAndOccupationData : function() {
 		return this.get("skillsJobsAndOccupationData");
 	},
-	translateToJobsAndOccupations : function() {
+	translateToJobs : function() {
 		var $this = this;
 		this.markTranslationInProgress();
 		var requestData = this.getJobsAndOccupationsData();
@@ -356,7 +356,7 @@ MST.Model.Profile = Backbone.Model.extend({
 				var ignore = (textStatus == "abort");
 				if(!ignore) { /* window.location changed */
 					MST.ENV.VIEW.error(xhr, textStatus, function() {
-						$this.translateToJobsAndOccupations();
+						$this.translateToJobs();
 					});
 				}
 			}
