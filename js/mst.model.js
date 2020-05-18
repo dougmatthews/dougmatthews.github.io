@@ -319,7 +319,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			success : function(data) {
 				$this.set("translationInProgress", false);
 				$this.set("skillsJobsAndOccupationData", data);
-				$this.trigger("skillsJobsAndOccupationDataSet");
+				$this.trigger("skillsJobsDataSet");
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				var ignore = (textStatus == "abort");
@@ -350,7 +350,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			success : function(data) {
 				$this.set("translationInProgress", false);
 				$this.set("jobsAndOccupationData", data);
-				$this.trigger("jobsAndOccupationDataSet");
+				$this.trigger("jobsDataSet");
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				var ignore = (textStatus == "abort");
