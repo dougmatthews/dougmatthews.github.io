@@ -1,4 +1,7 @@
 // can be overridden
+MST = window.MST || {};
+MST.View = window.MST.View || {};
+MST.View.OVERRIDE = MST.View.OVERRIDE || {};
 MST.View.OVERRIDE.bindAutocomplete = function() {
 	/**
 	 * http://stackoverflow.com/questions/9972080/cant-tap-on-item-in-google-autocomplete-list-on-mobile
