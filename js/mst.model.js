@@ -332,7 +332,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		});
 		MST.ENV.VIEW.setXhr(xhr);
 	},
-	getSkillsJobsAndOccupationData : function() {
+	getSkillsJobsData : function() {
 		return this.get("skillsJobsAndOccupationData");
 	},
 	translateToJobs : function() {
@@ -363,7 +363,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		});
 		MST.ENV.VIEW.setXhr(xhr);
 	},
-	getJobsAndOccupationData : function() {
+	getJobsData : function() {
 		return this.get("jobsAndOccupationData");
 	},
 	refineJobs : function() {
