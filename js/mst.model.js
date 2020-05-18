@@ -36,7 +36,7 @@ MST.Model.TenantBean = Backbone.Model.extend({
 		return "BP USA";
 	},
 	getTenantId : function() {
-		return MST.ENV.TenantId?MST.ENV.TenantId:58061;
+		return MST.ENV.TenantId?MST.ENV.TenantId:5000081;
 	},
 	getJobURLFormat : function() {
 		return "https://jobs.military.com/jobview/GetJob.aspx?JobID={0}&intcid=MST";
@@ -79,14 +79,6 @@ MST.Model.Profile = Backbone.Model.extend({
 		$this.set("page", 0)
 
 		if(MST.ENV.ServiceCode == null) {
-			if($.isFunction(window.getMemberInfo)) {
-				try {
-					var $service = getMemberInfo().service;
-					$this.setService($service);
-				} catch(ex) {
-					console.log("exception while setting service", ex)
-				}
-			}
 		} else {
 			$this.setService(MST.ENV.ServiceCode);
 		}
@@ -108,9 +100,6 @@ MST.Model.Profile = Backbone.Model.extend({
   	},
   	resetJobData : function() {
 		var $this = this;
-//		$this.get("sortBy") = $this.getDefaultSortBy();
-//		$this.get("isAsc") = $this.getDefaultAsc();
-//		$this.get("page") = 0;
 	},
   	initProfile : function() {
   	},
