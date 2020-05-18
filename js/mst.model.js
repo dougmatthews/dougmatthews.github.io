@@ -23,24 +23,13 @@ MST.Model.TenantBean = Backbone.Model.extend({
 	initialize : function(args) {
 		var $this = this;
 		$.ajax({
-			url : MST.ENV.ContextPathWithFilter + "/tenantBean",
+			url : MST.ENV.ContextPathWithFilter + "/paygradeMap",
 			dataType : "json",
 			type: "GET",
-			success : function(data) {
-				$.ajax({
-					url : MST.ENV.ContextPathWithFilter + "/paygradeMap",
-					dataType : "json",
-					type: "GET",
-					success : function(pgData) {
-						$this.set("paygradeMap", pgData);
-						$this.set("tenantBean", data);
-						$this.set("initialized", true);
-						Backbone.trigger('tenantReady');
-					},
-					error : function(xhr, textStatus, errorThrown) {
-						MST.ENV.VIEW.error(xhr, textStatus, errorThrown);
-					}
-				});
+			success : function(pgData) {
+				$this.set("paygradeMap", pgData);
+				$this.set("initialized", true);
+				Backbone.trigger('tenantReady');
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				MST.ENV.VIEW.error(xhr, textStatus, errorThrown);
