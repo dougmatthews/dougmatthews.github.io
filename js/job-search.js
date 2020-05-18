@@ -84,7 +84,6 @@ $(document).ready(function() {
 	    if ($(window).scrollTop() == $(document).height()-$(window).height()){
 	    }
 	});
-	//Backbone.on('tenantReady', function () {
 
 		var Jobs = Backbone.Model.extend({
 		      parseData: function (data) {
@@ -205,7 +204,6 @@ $(document).ready(function() {
 		  });
 
 		MST.ENV.Jobs = new Jobs();
-	//});
 });
 
 $.ajaxSetup({

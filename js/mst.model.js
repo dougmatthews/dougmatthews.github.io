@@ -299,7 +299,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			mosIds : this.getMosIDs(),
 			tenantId : MST.ENV.TenantBean.getTenantId(),
 			filterData : this.getRefineFormData(),
-			occupationMatchMap : {},
+			occupationMatchMap : {}, // legacy, send empty value
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches()
 		};
 	},
@@ -311,7 +311,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		
 		MST.ENV.VIEW.abortXhr();
 		var xhr = $.ajax({
-			url : MST.ENV.APIURL + "/translation/translateToSkillsJobs",
+			url : MST.ENV.APIURL + "/translation/translateToSkillsJobsAndOccupations",
 			dataType : "json",
 			contentType: "application/json",
 			type: "POST",
@@ -342,7 +342,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		MST.ENV.VIEW.abortXhr();
 		this.resetPages();
 		var xhr = $.ajax({
-			url : MST.ENV.APIURL + "/translation/translateToJobs",
+			url : MST.ENV.APIURL + "/translation/translateToJobsAndOccupations",
 			dataType : "json",
 			contentType: "application/json",
 			type: "POST",
@@ -424,18 +424,6 @@ MST.Model.Profile.AbstractSkilled = MST.Model.Profile.AbstractBase.extend({
 		
   	}
 });
-
-/*
-MST.Model.Profile.Occupation = MST.Model.Profile.AbstractSkilled.extend({
-	initialize: function() {},
-	getCode : function() {
-		return this.get("code");
-	},
-	getTitle : function() {
-		return this.get("title");
-	}
-});
-*/
 
 MST.Model.Profile.SkillMatch = MST.Model.Profile.AbstractEntity.extend({
 	skill : null,
