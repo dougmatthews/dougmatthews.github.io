@@ -275,7 +275,7 @@ MST.Model.Profile = Backbone.Model.extend({
 	getPage : function() {
 		return this.get("page");
 	},
-	getSkillsJobsAndOccupationsData : function() {
+	getTranslateToSkillsJobsData : function() {
 		return {
 			mosIds : this.getMosIDs(),
 			subspecialtyIdList : this.getSubspecialtyIDs(),
@@ -286,7 +286,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			filterData : this.getRefineFormData()
 		};
 	},
-	getJobsAndOccupationsData : function() {
+	getTranslateToJobsData : function() {
 		return {
 			mosIds : this.getMosIDs(),
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches(),
@@ -299,7 +299,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			mosIds : this.getMosIDs(),
 			tenantId : MST.ENV.TenantBean.getTenantId(),
 			filterData : this.getRefineFormData(),
-			occupationMatchMap : {},
+			occupationMatchMap : {}, // legacy, send empty obj
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches()
 		};
 	},
@@ -307,8 +307,8 @@ MST.Model.Profile = Backbone.Model.extend({
 		var $this = this;
 		this.markTranslationInProgress();
 		var $this = this;
-		var requestData = this.getSkillsJobsAndOccupationsData();
-		
+		var requestData = this.getTranslateToSkillsJobsData();
+
 		MST.ENV.VIEW.abortXhr();
 		var xhr = $.ajax({
 			url : MST.ENV.APIURL + "/translation/translateToSkillsJobsAndOccupations",
@@ -318,7 +318,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			data : JSON.stringify(requestData),
 			success : function(data) {
 				$this.set("translationInProgress", false);
-				$this.set("skillsJobsAndOccupationData", data);
+				$this.set("skillsJobsData", data);
 				$this.trigger("skillsJobsDataSet");
 			},
 			error : function(xhr, textStatus, errorThrown) {
@@ -333,12 +333,12 @@ MST.Model.Profile = Backbone.Model.extend({
 		MST.ENV.VIEW.setXhr(xhr);
 	},
 	getSkillsJobsData : function() {
-		return this.get("skillsJobsAndOccupationData");
+		return this.get("skillsJobsData");
 	},
 	translateToJobs : function() {
 		var $this = this;
 		this.markTranslationInProgress();
-		var requestData = this.getJobsAndOccupationsData();
+		var requestData = this.getTranslateToJobsData();
 		MST.ENV.VIEW.abortXhr();
 		this.resetPages();
 		var xhr = $.ajax({
@@ -349,7 +349,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			data : JSON.stringify(requestData),
 			success : function(data) {
 				$this.set("translationInProgress", false);
-				$this.set("jobsAndOccupationData", data);
+				$this.set("jobsData", data);
 				$this.trigger("jobsDataSet");
 			},
 			error : function(xhr, textStatus, errorThrown) {
@@ -364,7 +364,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		MST.ENV.VIEW.setXhr(xhr);
 	},
 	getJobsData : function() {
-		return this.get("jobsAndOccupationData");
+		return this.get("jobsData");
 	},
 	refineJobs : function() {
 		var $this = this;
