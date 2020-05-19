@@ -260,7 +260,7 @@ MST.View.SubspecialtyEditSection = MST.View.AbstractEditEntitySection.extend({
 		var subspecialty = { id : id, title : title, checked : true, custom : true};
 		var $this = this;
 		$this.custom[subspecialty.id] = subspecialty;
-		$.each(MST.ENV.TenantBean.getPaygradeMap(), function(paygradeId) {
+		$.each(MST.ENV.App.getPaygradeMap(), function(paygradeId) {
 			/* remove old refernece, and add new reference */
 			var index = _.findIndex($this.cloned[paygradeId], function($sm) {
 				return $sm.id == subspecialty.id;
@@ -343,7 +343,7 @@ MST.View.SubspecialtyEditSection = MST.View.AbstractEditEntitySection.extend({
 		this.custom = {};
 		this.deleted = {};
 		this.cloned = {};
-		$.each(MST.ENV.TenantBean.getPaygradeMap(), function(paygradeId, val) {
+		$.each(MST.ENV.App.getPaygradeMap(), function(paygradeId, val) {
 			$this.cloned[paygradeId] = [];
 		});
 		
@@ -378,7 +378,7 @@ MST.View.SubspecialtyEditSection = MST.View.AbstractEditEntitySection.extend({
 				}
 			});
 			
-			$.each(MST.ENV.TenantBean.getPaygradeMap(), function(paygradeId) {
+			$.each(MST.ENV.App.getPaygradeMap(), function(paygradeId) {
 				if($.isArray(mos.getSubspecialties())) {
 					$.each(tempSubspecialtyMap, function(idx, subspecialty) {
 						var customObj = typeof(mos.getSelectedSubspecialties()[subspecialty.id]) === "object";
@@ -471,7 +471,7 @@ MST.View.SubspecialtyEditSection = MST.View.AbstractEditEntitySection.extend({
 		}
 
 		MST.ENV.Profile.getMOSes().forEach(function(mos) {
-			$.each(MST.ENV.TenantBean.getPaygradeMap(), function(paygradeId) {
+			$.each(MST.ENV.App.getPaygradeMap(), function(paygradeId) {
 				$.each($this.cloned[paygradeId], function(idx, subspecialty) {
 					var inDeleteList = typeof($this.deleted[subspecialty.id]) === "object";
 					var inCustomList = typeof($this.custom[subspecialty.id]) === "object";
@@ -980,11 +980,11 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 		var $this = this;
 		MST.View.AbstractPageView.prototype.onReady.call(this);
 		
-		var backText = MST.ENV.TenantBean.getBackButtonText();
+		var backText = MST.ENV.App.getBackButtonText();
 		if(backText != null && backText != undefined && backText != "" && backText.length && backText.length > 0) {
 			$(window).bind('beforeunload', function(){
 				if(MST.ENV.Profile.getMOSes().length > 0) {
-					return MST.ENV.TenantBean.getBackButtonText();
+					return MST.ENV.App.getBackButtonText();
 				}
 			});
 		}

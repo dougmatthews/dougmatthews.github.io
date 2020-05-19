@@ -16,15 +16,16 @@ MST.View = window.MST.View || {};
 MST.Collection = window.MST.Collection || {};
 
 $(document).ready(function() {
-	MST.ENV.TenantBean = new MST.Model.TenantBean();
+	MST.ENV.App = new MST.Model.App();
 });
 
-MST.Model.TenantBean = Backbone.Model.extend({
+MST.Model.App = Backbone.Model.extend({
 	initialize : function(args) {
 		var $this = this;
 		$this.set("paygradeMap", JSON.parse('{"2":"E-1","3":"E-2","4":"E-3","5":"E-4","6":"E-5","7":"E-6","8":"E-7","9":"E-8","10":"E-9","11":"E-10","12":"W-1","13":"W-2","14":"W-3","15":"W-4","16":"W-5","17":"O-1","18":"O-2","19":"O-3","20":"O-4","21":"O-5","22":"O-6","23":"O-7","24":"O-8","25":"O-9","26":"O-10"}'));
 		$this.set("initialized", true);
-		Backbone.trigger('tenantReady');
+		Backbone.trigger('appReady');
+		console.log("App:initialize, step #1, this is normally a REST api call to load these properties, for this demo it's not necessary");
 	},
 	isInitialized : function() {
 		return this.get("initialized") === true;
@@ -35,8 +36,8 @@ MST.Model.TenantBean = Backbone.Model.extend({
 	getDisplayName : function() {
 		return "BP USA";
 	},
-	getTenantId : function() {
-		return MST.ENV.TenantId?MST.ENV.TenantId:5000081;
+	getAppId : function() {
+		return MST.ENV.Id?MST.ENV.Id:5000081;
 	},
 	getJobURLFormat : function() {
 		return "https://jobs.military.com/jobview/GetJob.aspx?JobID={0}&intcid=MST";
@@ -265,7 +266,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		}
 	},
 	getSize : function() {
-		return MST.ENV.TenantBean.getNumOfJobsPerPage();
+		return MST.ENV.App.getNumOfJobsPerPage();
 	},
 	getFrom : function() {
 		var p = this.getPage();
@@ -282,7 +283,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			trainingIdList : this.getTrainingIDs(),
 			customSkillIdList : [],
 			exclusionList : [],
-			tenantId : MST.ENV.TenantBean.getTenantId(),
+			appId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData()
 		};
 	},
@@ -290,14 +291,14 @@ MST.Model.Profile = Backbone.Model.extend({
 		return {
 			mosIds : this.getMosIDs(),
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches(),
-			tenantId : MST.ENV.TenantBean.getTenantId(),
+			appId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData()
 		};
 	},
 	getFilterData : function() {
 		return {
 			mosIds : this.getMosIDs(),
-			tenantId : MST.ENV.TenantBean.getTenantId(),
+			appId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData(),
 			occupationMatchMap : {}, // legacy, send empty obj
 			skillMatchWrappers : MST.SkillRepository.getSkillMatches()
@@ -534,11 +535,11 @@ MST.Model.Profile.Job = MST.Model.Profile.AbstractBase.extend({
   	},
   	getJobURL : function() {
   		var href;
-  		if(parseBoolean(MST.ENV.TenantBean.isUseJobUrlFromJobData()) && !$.isNullorUndefined(this.get("url"))) {
+  		if(parseBoolean(MST.ENV.App.isUseJobUrlFromJobData()) && !$.isNullorUndefined(this.get("url"))) {
   			href = this.get("url");
   		} else {
-  	  		var $format = MST.ENV.TenantBean.getJobURLFormat();
-  	  		var useRefCode = parseBoolean(MST.ENV.TenantBean.isUseRefCodeForJobUrl());
+  	  		var $format = MST.ENV.App.getJobURLFormat();
+  	  		var useRefCode = parseBoolean(MST.ENV.App.isUseRefCodeForJobUrl());
   	  		if (useRefCode) {
   	  	  		$format = ($format != null && $format != undefined) ? $format : "https://www.military.com/jobView/{0}-{1}-id-core-{2}?page_index=1";
   	  	  		var title = ($.trim(this.getTitle()).length > 0) ? this.getTitle().replace(/[.,\/#!$%\^&\*;:{}=_`~()\s]/g, '-') : "";

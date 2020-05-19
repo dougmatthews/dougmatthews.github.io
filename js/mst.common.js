@@ -350,7 +350,7 @@ MST.SkillRepository = {
 
 	var privateMethods = {
 		getEvar11Value : function() {
-			return MST.ENV.TenantCode + "_MST";
+			return MST.ENV.Code + "_MST";
 		},
 		encode : function(arg) {
 			try {

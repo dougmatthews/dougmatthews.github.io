@@ -182,10 +182,10 @@ MST.View.AbstractPageView = MST.View.AbstractView.extend({
 	initialize : function(args) {
 		var $this = this;
 		this.mosView = new MST.View.MOS.Empty();
-		if(MST.ENV.TenantBean.isInitialized()) {
+		if(MST.ENV.App.isInitialized()) {
 			$this.onReady();
 		} else {
-			this.listenTo(MST.ENV.TenantBean, "change:initialized", function() {
+			this.listenTo(MST.ENV.App, "change:initialized", function() {
 				$this.onReady();
 			});
 		}

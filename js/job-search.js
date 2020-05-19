@@ -102,7 +102,7 @@ $(document).ready(function() {
 			    	  if(found > 0) {
 			    	  	$("#mst-empty").hide();	
 			    	  } else {
-			    	  	$("#mst-empty").show().html(MST.ENV.TenantBean.getJobEmptyMessage());
+			    	  	$("#mst-empty").show().html(MST.ENV.App.getJobEmptyMessage());
 			    	  }
 		    	  	  var modelResults = [];
 		    	  	  $.each(results, function(idx, result) {

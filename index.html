@@ -22,13 +22,13 @@
 
 		MST = window.MST || {};
 		MST.ENV = window.MST.ENV || {};
-		MST.ENV.TenantCode = "bp-usa";
-		MST.ENV.TenantId = 5000081;
+		MST.ENV.Code = "bp-usa";
+		MST.ENV.Id = 5000081;
 
 		var contextPath = 'https://www.military.com/mst';
 
 		MST.ENV.APIURL = contextPath + '/mst-api';
-		MST.ENV.ContextPathWithFilter = contextPath + "/" + MST.ENV.TenantCode;
+		MST.ENV.ContextPathWithFilter = contextPath + "/" + MST.ENV.Code;
 		MST.ENV.pageSize = 5;
 
 		MST.ENV.ServiceCode = null; // can be set to lock to specific service, for example "ARMY"
