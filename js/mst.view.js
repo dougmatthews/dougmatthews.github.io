@@ -1023,6 +1023,7 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 			$("#query").val($mos.getAutocompleteString());
 		}
 	},
+	/*
 	onMOSRemoved : function($mos) {
 		var $this = this;
 		if(!MST.ENV.Profile.hasMOSes()) {
@@ -1031,8 +1032,10 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 		MST.ENV.isProfileDirty = true;
 		this.onStateChanged(true);
 	},
+	*/
 	onStateChanged : function(fullTranslation) {
 		MST.ENV.Profile.resetPages();
+		console.log("Page:onStateChanged, step #5, trigger the model to get jobs.");
 		if(fullTranslation === true) {
 			MST.ENV.Profile.translateToSkillsJobs();
 		} else {

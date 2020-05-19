@@ -90,6 +90,7 @@ MST.View.AbstractMosFilterView = MST.View.Panel.extend({
 			source: function( request, response ) {
 				var params = {from: 0,size: 10,paygradeId: -1, includeDescription: false, service: $($this.serviceSelect).val(), searchTerm: request.term};
 				MST.ENV.VIEW.abortXhr();
+				console.log("AbstractMosFilterView:autocomplete, step #2, user is selecting a MOS.");
 				var xhr = $.getJSON(MST.ENV.APIURL + "/entity/mos", params,
 					function(data) {
 						data.beanList = $.isArray(data.beanList) ? data.beanList : [];
@@ -117,6 +118,7 @@ MST.View.AbstractMosFilterView = MST.View.Panel.extend({
 				$this.initialSelectionMade = true;
 				$($this.inputSelector).parent().removeClass("has-error");
 				$this.showSpinner();
+				console.log("AbstractMosFilterView:select, step #3, user has selected a MOS, add this to the profile.");
 				MST.ENV.Profile.onMosAdd(ui.item.id);
 			}
 		});

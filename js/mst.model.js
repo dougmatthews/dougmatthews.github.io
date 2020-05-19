@@ -186,6 +186,7 @@ MST.Model.Profile = Backbone.Model.extend({
   	onMosAdd : function(id) {
   		var $this = this;
   		id = parseInt(id);
+		console.log("Profile:onMosAdd, step #4, make a REST api call for the MOS metadata.");
   		$.ajax({
 			url : MST.ENV.APIURL + "/entity/mos/" + id,
 			data : { deepCopy : true },
