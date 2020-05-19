@@ -89,14 +89,14 @@ $(document).ready(function() {
 		      parseData: function (data) {
 		    	  var jobResults = (data && data.jobResults) ? data.jobResults : data;
 		    	  if (jobResults) {
-		    		  var jobSourceId;
+		    		  var key; // key should equal MST.ENV.Key, but actual value is not important
 		    		  if (_.isArray(_.keys(jobResults)) && (1 == _.keys(jobResults).length)) {
-		    			  jobSourceId = _.keys(jobResults)[0];
+		    			  key = _.keys(jobResults)[0];
 		    		  }
-			    	  var results = (jobResults[jobSourceId]) ? jobResults[jobSourceId].results : [];
+			    	  var results = (jobResults[key]) ? jobResults[key].results : [];
 			    	  results = ($.isArray(results)) ? results : [];
 			    	  
-			    	  var found = (jobResults[jobSourceId]) ? jobResults[jobSourceId].found : 0;
+			    	  var found = (jobResults[key]) ? jobResults[key].found : 0;
 			    	  found = (!isNaN(parseInt(found))) ? parseInt(found) : 0;
 			    	  
 			    	  if(found > 0) {
@@ -141,7 +141,7 @@ $(document).ready(function() {
 		    reset : function() {
 		    	this.mCollection = new JobsCollection();
 		    	this.mCollection.mode = "infinite";
-		    	this.mCollection.state.pageSize = MST.ENV.pageSize;
+		    	this.mCollection.state.pageSize = MST.ENV.Mobile.pageSize;
 	  		    this.dGrid = new Backgrid.Grid({
 				  	  columns: columns,
 				  	  collection: this.mCollection
