@@ -141,7 +141,7 @@ $(document).ready(function() {
 		    reset : function() {
 		    	this.mCollection = new JobsCollection();
 		    	this.mCollection.mode = "infinite";
-		    	this.mCollection.state.pageSize = MST.ENV.Mobile.pageSize;
+		    	this.mCollection.state.pageSize = MST.ENV.App.getNumOfJobsPerMobilePage();
 	  		    this.dGrid = new Backgrid.Grid({
 				  	  columns: columns,
 				  	  collection: this.mCollection

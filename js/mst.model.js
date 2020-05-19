@@ -48,8 +48,11 @@ MST.Model.App = Backbone.Model.extend({
 	isUseRefCodeForJobUrl : function() {
 		return true;
 	},
-	getNumOfJobsPerPage : function() {
+	getNumOfJobsPerDesktopPage : function() {
 		return 20;
+	},
+	getNumOfJobsPerMobilePage : function() {
+		return 5;
 	},
 	getMaxJobDescriptionCharsBeforeCutoff : function() {
 		return 300;
@@ -266,7 +269,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		}
 	},
 	getSize : function() {
-		return MST.ENV.App.getNumOfJobsPerPage();
+		return MST.ENV.App.getNumOfJobsPerDesktopPage();
 	},
 	getFrom : function() {
 		var p = this.getPage();
