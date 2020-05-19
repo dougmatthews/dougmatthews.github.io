@@ -287,8 +287,7 @@ MST.View.SubspecialtyEditSection = MST.View.AbstractEditEntitySection.extend({
 	save : function() {
 		var $this = this;
 
-		
-		/* we only have one mos */
+		// we only have one mos
 		var numOfEntities = 0;
 		MST.ENV.Profile.getMOSes().forEach(function(mos) {
 			var $val = parseInt($("#payGrade").val());
@@ -434,7 +433,7 @@ MST.View.SubspecialtyEditSection = MST.View.AbstractEditEntitySection.extend({
 			$("#payGrade-button span").addClass("form-control input-lg");
 		}
 				
-		/* we only have 1 mos for now */
+		// we only have 1 mos for now
 		MST.ENV.Profile.getMOSes().forEach(function(mos) {
 			var pg = parseInt(mos.getPaygrade());
 			pg = (!isNaN(pg)) ? pg : null;
@@ -564,7 +563,7 @@ MST.View.EditTrainingSection = MST.View.AbstractEditEntitySection.extend({
 					if(customIndex > -1) {
 						$this.custom.splice(customIndex, 1);
 					}
-					/* end cleaning array */
+					// end cleaning array
 				}
 	  		});
 			$this.onEntityFinishedEdit();
@@ -629,25 +628,18 @@ MST.View.EditTrainingSection = MST.View.AbstractEditEntitySection.extend({
 		var mos = MST.ENV.Profile.getMOS(t.mos);
 		if (mos) {
 //			console.log('add training: ' + t.title + ' to ' + mos.get("title"));
-//			this.selected[t.id]=t;
-//			delete this.removed[t.id];
 			t.selected=true;
-//			t.removed=false;
 		}
 	},
 	remove : function(t) {
 		var mos = MST.ENV.Profile.getMOS(t.mos);
 		if (mos) {
 //			console.log('remove training: ' + t.title + ' to ' + mos.get("title"));
-//			delete this.selected[t.id];
 			$.each(this.custom, function(idx, val) {
 				if(val.id == t.id) {
 					val.selected = false;
 				}
 			});
-			//delete this.custom[t.id];
-//			this.removed[t.id]=t;
-//			t.removed=true;
 			t.selected = false;
 		}
 	},
@@ -663,8 +655,6 @@ MST.View.EditTrainingSection = MST.View.AbstractEditEntitySection.extend({
 		$this.onEntityEdit();
 		
 		this.cloned = [];
-//		this.selected = {};
-//		this.removed = {};
 		this.selectedIds = _.map(MST.ENV.Profile.getSelectedTrainings(), function(t) {return t.id;})
 		MST.ENV.Profile.getMOSes().forEach(function(mos) {
   			var val = mos.getTrainings();
@@ -1037,10 +1027,8 @@ MST.View.Page = MST.View.AbstractPageView.extend({
 		var $this = this;
 		if(!MST.ENV.Profile.hasMOSes()) {
 			$this.mosView.render();
-			//new MST.View.MOS.Empty().render();
 		}
 		MST.ENV.isProfileDirty = true;
-//		MST.SkillRepository.purgeMosHistory($mos.getId());		
 		this.onStateChanged(true);
 	},
 	onStateChanged : function(fullTranslation) {

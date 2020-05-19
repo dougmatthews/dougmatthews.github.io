@@ -37,15 +37,15 @@ MST.View.Location = MST.View.AbstractView.extend({
 //			types: ['geocode','(cities)'],
 //			componentRestrictions: {country: 'us'}
 //		};
-		
-		/* clear out value on empty input */
+
+		// clear out value on empty input
 		$(input).keyup(function() {
 			if($(this).val() == "") {
 				$("#location").text('');
 				MST.ENV.Profile.markRefineSectionAsDirty();
 			}
 		});
-		
+
 		$(input).change(function() {
 			if($(this).val() == "") {
 				$("#location").text('');
@@ -56,7 +56,7 @@ MST.View.Location = MST.View.AbstractView.extend({
 				});
 			}
 		});	
-		
+
 		Backbone.on("placeChange", function() {
 			MST.ENV.Profile.markRefineSectionAsDirty();
 			$("#refineSearchBtn, #refineSearchBtnMobile").each(function() {
@@ -76,7 +76,6 @@ MST.View.AbstractMosFilterView = MST.View.Panel.extend({
 		this.autocomplete();
 	},
 	render : function() {
-		//$(this.serviceSelect).val(MST.ENV.Profile.getService());
 		return this;
 	},
 	getMinAutocompleteLength : function() {

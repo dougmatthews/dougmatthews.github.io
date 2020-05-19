@@ -278,20 +278,6 @@ MST.SkillRepository = {
 			}
 		}
 	},
-	/*
-	getSkillsForMos : function(id) {
-		return this._getSkillsForEntity(id, "MOS");
-	},
-	getSkillsForTraining : function(id) {
-		return this._getSkillsForEntity(id, "TRN");
-	},
-	getSkillsForSubspecialty : function(id) {
-		return this._getSkillsForEntity(id, "SUB");
-	},
-	getSkillsForExperience : function(id) {
-		return this._getSkillsForEntity(id, "OCC");
-	},
-	*/
 	_getSkillsForEntity : function(id, refType) {
 		var retVal = [];
 		if(id != null && id != undefined) {
