@@ -25,7 +25,7 @@ MST.Model.App = Backbone.Model.extend({
 		$this.set("paygradeMap", JSON.parse('{"2":"E-1","3":"E-2","4":"E-3","5":"E-4","6":"E-5","7":"E-6","8":"E-7","9":"E-8","10":"E-9","11":"E-10","12":"W-1","13":"W-2","14":"W-3","15":"W-4","16":"W-5","17":"O-1","18":"O-2","19":"O-3","20":"O-4","21":"O-5","22":"O-6","23":"O-7","24":"O-8","25":"O-9","26":"O-10"}'));
 		$this.set("initialized", true);
 		Backbone.trigger('appReady');
-		console.log("App:initialize, step #1, this is normally a REST api call to load these properties, for this demo it's not necessary");
+		console.log("App:initialize, step #1, this is normally a REST api call to load these properties, but for this demo it's not necessary");
 	},
 	isInitialized : function() {
 		return this.get("initialized") === true;
