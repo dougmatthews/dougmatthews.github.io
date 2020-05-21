@@ -292,7 +292,7 @@ MST.Model.Profile = Backbone.Model.extend({
 	getTranslateToJobsData : function() {
 		return {
 			mosIds : this.getMosIDs(),
-			skillMatchWrappers : MST.SkillRepository.getSkillMatches(),
+			skillMatchWrappers : [],
 			tenantId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData()
 		};
@@ -303,7 +303,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			tenantId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData(),
 			occupationMatchMap : {}, // legacy, send empty obj
-			skillMatchWrappers : MST.SkillRepository.getSkillMatches()
+			skillMatchWrappers : []
 		};
 	},
 	translateToSkillsJobs : function() {
