@@ -249,7 +249,6 @@ MST.Model.Profile = Backbone.Model.extend({
 			keyword : $this.getKeyword(),
 			size : $this.getSize(),
 			start : $this.getFrom(),
-			from : $this.getFrom(),
 			order : $this.getOrder(),
 			asc : $this.isAsc()
 		};
