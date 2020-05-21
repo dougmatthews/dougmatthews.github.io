@@ -285,7 +285,6 @@ MST.Model.Profile = Backbone.Model.extend({
 			subspecialtyIdList : this.getSubspecialtyIDs(),
 			trainingIdList : this.getTrainingIDs(),
 			customSkillIdList : [],
-			exclusionList : [],
 			tenantId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData()
 		};
