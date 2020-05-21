@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
+<meta HTTP-EQUIV="Expires" CONTENT="-1" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+<!-- remote css -->
+<link rel="stylesheet" href="https://www.military.com/media/bootstrap/v4.0.0-alpha.2/bootstrap.css" />
+<link rel="stylesheet" href="https://www.military.com//media/production/military-skills-translator/responsive/military.responsive.css" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/backgrid.js/0.3.5/backgrid.min.css" />
+
+<script>
+	/*<![CDATA[*/
+		var bustFrame = false;
+		document.documentElement.style.display = 'block';
+
+		MST = window.MST || {};
+		MST.ENV = window.MST.ENV || {};
+		MST.ENV.Code = "bp-usa";
+		MST.ENV.Id = 58061;
+		MST.ENV.Key = 5000009;
+
+		var contextPath = 'https://www.military.com/mst';
+
+		MST.ENV.APIURL = contextPath + '/mst-api';
+		MST.ENV.ContextPathWithFilter = contextPath + "/" + MST.ENV.Code;
+
+		MST.ENV.ServiceCode = null; // can be set to lock to specific service, for example "ARMY"
+	/*]]>*/
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.1/backbone-min.js"></script>
+
+<!-- remote js -->
+<script type="text/javascript" src="https://www.military.com/script/bootstrap/tether/1.1.0/tether.js"></script>
+<script type="text/javascript" src="https://www.military.com/script/bootstrap/v4.0.0-alpha.2/bootstrap.js"></script>
+<script type="text/javascript" src="https://www.military.com/script/bootstrap/backbone.paginator/2.0.0/backbone.paginator.js"></script>
+<script type="text/javascript" src="https://www.military.com/script/bootstrap/backgrid/backgrid.js"></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG91l4X_NuiU_j4eBcEiyM3ZUdGofvMVg&amp;libraries=places"></script>
+		<title>mst-api demo</title>
+		<link rel="icon" type="image/png" href="//images.military.com/favicon.ico" />
+		<script type="text/javascript" src="/js/mst.common.js"></script>
+		<script type="text/javascript" src="/js/mst.model.js"></script>
+		<script type="text/javascript" src="/js/abstract.view.js"></script>
+		<script type="text/javascript" src="/js/mst.location.js"></script>
+		<script type="text/javascript" src="/js/mst.view.js"></script>
+		<script type="text/javascript" src="/js/job-search.js"></script>
+	</head>
+	<body>
+    <div id="main">
+      <div id="mstResponsiveBody">
+      <h1>mst-api demo</h1>
+			<div id="searchContainer" class="container mst-container">
+				<div class="mst-search-contianer-padding hidden-sm-down"></div>
+				<div class="mst-search-container">
+					<div id="milExp" class="row">
+					  <div class="hidden-sm-down col-md-12">
+					  	<span class="text-xs-left mst-title">Military Skills Translator</span>
+					  </div>
+					  <div class="col-xs-12">
+					  	<span id="dTitle" class="text-xs-center mst-header-text hidden-sm-down">Match Military Experience to Civilian Jobs</span>
+					  	<span id="mTitle" class="text-xs-center mst-header-text hidden-md-up" data-remove-on-mos-add="true">Match Military Experience to Civilian Jobs</span>
+					  </div>
+					  <div id="dPoweredBy" class="poweredBy">
+					  	<div class="poweredByText"></div>
+					  	<div class="poweredByImage"></div>
+					  </div>
+					</div>
+					<div id="serviceRow" class="row form-group" data-remove-on-mos-add="true">
+					  <div class="col-xs-12 col-md-3">
+					  	<label for="service">Service</label>
+					  </div>
+					  <div class="col-xs-12 col-md-9 mst-searchcontainer-service">
+							<select data-role="none" id="service" class="form-control input-lg" autocomplete="off" data-icon="tri-d" data-shadow="false">
+								<option value="">Select Your Service</option>
+								<option value="">All</option>
+								<option value="ARMY">Army</option>
+								<option value="MARINE">Marine Corps</option>
+								<option value="NAVY">Navy</option>
+								<option value="AIRFRC">Air Force</option>
+								<option value="COASTG">Coast Guard</option>
+							</select>
+					  </div>
+					</div>		
+					<div id="jobTitleRow" class="row form-group" data-remove-on-mos-add="true">
+					  <div class="col-xs-12 col-md-3">
+					  	<label for="query">Military Job Title</label>
+					  </div>
+					  <div class="col-xs-12 col-md-9 mst-searchcontainer-mos form-group">
+				   		<input data-role="none" type="text" name="query" id="query" value="" maxlength="100" class="form-control input-lg autocomplete" placeholder="Enter MOS / AFSC / Rating" autocomplete="off" />
+				   		<div class="autocomplete-container"></div>
+				   		<span class="form-control-feedback"></span>
+				   		<span class="form-control-feedback-text">Please Enter Your Military Job Title</span>
+					  </div>
+					  <input type="hidden" id="mosId" />
+					</div>
+					<div id="searchBtnRow" class="row">
+					  <div class="col-xs-12">
+				   		<button data-role="none" id="searchBtn" class="btn btn-primary btn-block" type="button">Search Jobs Now
+				   			<i class="material-icons glyphicon-refresh" style="display:none">autorenew</i>
+				   			<!--
+				   			<i class="material-icons">cached</i>
+				   			-->
+				   		</button>
+					  </div>
+					</div>
+				</div>
+				<div class="mst-search-contianer-padding hidden-sm-down"></div>
+			</div>
+			
+	      <div id="resultsContainer" style="display:none" class="container">
+	        <div class="row">
+	          <div id="refineColumn" class="col-md-4 hidden-sm-down panel panel-default">
+		        <div class="row">
+		        	<div class="col-xs-12 refine-container">
+		        		<div id="refineScrollableContainer">
+		        			<div id="reinfeScrollableMeasurement">
+				        		<div id="refineMosSection" 
+				        			 class=" refine-container-content panel-body list-group mst-search-filter"
+				        			 data-show-on-entity-edit='false'>
+				        			<div id="service-reinsert" class="list-group-item filter-param" data-role="fieldcontain">
+				        				<label class="text-xs-left weighted-title service-refine-title" for="serviceRefine">Service</label>
+				        				<select data-role="none" id="serviceRefine" class="form-control input-lg" autocomplete="off" data-icon="tri-d" data-shadow="false">
+											<option value="">Select Your Service</option>
+											<option value="">All</option>
+											<option value="ARMY">Army</option>
+											<option value="MARINE">Marine Corps</option>
+											<option value="NAVY">Navy</option>
+											<option value="AIRFRC">Air Force</option>
+											<option value="COASTG">Coast Guard</option>
+										</select>
+				        			</div>
+				        			<div id="query-reinsert" class="list-group-item filter-param form-group" data-role="fieldcontain">
+				        				<label class="text-xs-left weighted-title mos-refine-title" for="queryRefine">Military Job Title</label>
+				        				<input data-mini="true" data-role="none" type="text" name="queryRefine" id="queryRefine" value="" maxlength="100" class="form-control input-lg autocomplete" placeholder="Enter MOS / AFSC / Rating" autocomplete="off" />
+				        				<div class="autocomplete-container"></div>
+				        				<span class="form-control-feedback"></span>
+				   						<span class="form-control-feedback-text">Please Enter Your Military Job Title</span>
+				        			</div>
+				        		</div>
+					    		<div class="refine-container-content panel-body list-group mst-search-filter" data-show-on-entity-edit='false'>
+					    			<div class="list-group-item filter-param" data-role="fieldcontain">
+							    		<label class="col-xs-4 text-xs-left weighted-title" for="keyword">Keyword</label>
+							    		<input data-role="none" type="text" autocomplete="off" class="form-control" data-mini="true" id="keyword" placeholder="Enter Keyword" />
+						    		</div>
+					    			<div id="locationSection" class="list-group-item filter-param" data-role="fieldcontain">
+							    		<label class="col-xs-4 text-xs-left weighted-title" for="locationAutocomplete">Location</label>
+										<input data-role="none" type="text" id="locationAutocomplete" autocomplete="off" class="form-control input-lg autocomplete mst-refine-entity-autocomplete" placeholder="Enter city, state, or zip" />
+							    		<input type="hidden" autocomplete="off" class="form-control" data-mini="true" id="location" placeholder="" />
+						    		</div>
+					    		</div>
+					    		<div class="refine-container-content panel-body list-group mst-skills-trainings-subspecialties-panel">
+					    		
+					    			<div id="subspecialtiesSectionAnchor" class="hidden-md-up hidden-mobile-anchor"></div>
+					    			<div id="subspecialtiesSection" class="mst-translation-entity-view" data-show-on-entity-edit='false'>
+						    			<div class="panel-heading">
+						    				<span class="panel-title weighted-title">Subspecialties</span>
+						    				<span id="subspecialtiesCount"></span>
+						    			</div>
+						    			<div style="display: none" class="list-group-item panel panel-default mst-subentity-panel mst-subspecialties-panel hidden-sm-down">
+							    			<div class="panel-content">
+							    				<div id="subspecialtyList" class="mst-refine-entity-list"></div>
+							    			</div>
+							    		</div>
+							    		<div id="editSubspecialties" class="mst-container mst-container-link">
+							    			<div class="tooltip" title="Subspecialties Saved"></div>
+						    				<a data-role="none" class="addEditBtn" href="javascript:void(0)">
+						    					<span class="container-text">Add/Edit Subspecialties </span>
+						    					<i class="material-icons container-arrow-right">keyboard_arrow_right</i>
+						    				</a>
+						    			</div>
+						    		</div>
+						    		
+						    		<div id="subspecialtiesEditSection" style="display: none" data-show-on-entity-edit='true'>
+						    			<div class="panel-heading edit-panel-heading">
+						    				<span class="container-text">Subspecialties</span>
+						    			</div>
+						    			<div class="panel-heading">
+						    				<span class="panel-title weighted-title">
+						    					<label for="payGrade">Pay Grade</label>
+						    				</span>
+						    			</div>
+						    			<select data-role="none" id="payGrade">
+						    				<option value="">Select Pay Grade</option>
+						    				<option value="2">E-1</option>
+						    				<option value="3">E-2</option>
+						    				<option value="4">E-3</option>
+						    				<option value="5">E-4</option>
+						    				<option value="6">E-5</option>
+						    				<option value="7">E-6</option>
+						    				<option value="8">E-7</option>
+						    				<option value="9">E-8</option>
+						    				<option value="10">E-9</option>
+						    				<option value="11">E-10</option>
+						    				<option value="12">W-1</option>
+						    				<option value="13">W-2</option>
+						    				<option value="14">W-3</option>
+						    				<option value="15">W-4</option>
+						    				<option value="16">W-5</option>
+						    				<option value="17">O-1</option>
+						    				<option value="18">O-2</option>
+						    				<option value="19">O-3</option>
+						    				<option value="20">O-4</option>
+						    				<option value="21">O-5</option>
+						    				<option value="22">O-6</option>
+						    				<option value="23">O-7</option>
+						    				<option value="24">O-8</option>
+						    				<option value="25">O-9</option>
+						    				<option value="26">O-10</option>
+						    			</select>
+
+							    		<div class="panel-heading">
+							    			<span class="panel-title weighted-title">
+							    				<label for="subspecialtyAutocomplete">Select Subspecialties from list</label>
+							    			</span>
+							    		</div>
+						    			<div class="list-group-item panel panel-default panel-default-editable-list">
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSectionEmpty">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-2">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-3">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-4">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-5">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-6">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-7">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-8">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-9">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-10">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-11">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-12">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-13">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-14">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-15">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-16">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-17">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-18">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-19">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-20">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-21">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-22">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-23">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-24">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-25">
+						    				</div>
+						    				<div class="subspecialtyPaygradeSection" style="display:none" id="subspecialtyPaygradeSection-26">
+						    				</div>
+						    			</div>
+										<input data-role="none" type="text" id="subspecialtyAutocomplete" autocomplete="off" class="form-control input-lg autocomplete mst-refine-entity-autocomplete" placeholder="Enter Subspecialty" />
+										<div class="autocomplete-container"></div>
+										<div class="row absolutelyPositionedDesktopEditSection" id="editSubspecialtiesButtonContainer">    			
+						    				<button data-role="none" id="editSubspecialtiesBtn" type="button" class="btn btn-primary mst-edit-entity-button">
+												<span>Save</span>
+											</button>
+											<a data-role="none" id="cancelSubspecialtiesEdit" class="mst-edit-entity-cancel" href="javascript:void(0);">Cancel</a>
+										</div>
+						    		</div>
+						    		
+						    		<div id="trainingSectionAnchor" class="hidden-md-up hidden-mobile-anchor"></div>
+						    		<div id="trainingSection" class="mst-translation-entity-view" data-show-on-entity-edit='false'>
+							    		<div class="panel-heading"><span class="panel-title weighted-title">Trainings &amp; Schools</span><span id="trainingCount"></span></div>
+						    			<div style="display: none" class="list-group-item panel panel-default mst-subentity-panel mst-trainings-panel col-xs-12 hidden-sm-down">
+							    			<div class="panel-content">
+							    				<div id="trainingList" class="mst-refine-entity-list"></div>
+							    			</div>
+							    		</div>
+							    		<div id="editTrainings" class="mst-container mst-container-link">
+							    			<div class="tooltip" title="Trainings Saved"></div>
+							    			<a data-role="none" class="addEditBtn" href="javascript:void(0)">
+							    				<span class="container-text">Add/Edit Training</span>
+							    			</a>
+							    		</div>
+						    		</div>
+						    		<div id="trainingEditSection" style="display: none" data-show-on-entity-edit='true'>
+						    			<div class="panel-heading edit-panel-heading">
+						    				<span class="container-text">Trainings</span>
+						    			</div>
+							    		<div class="panel-heading">
+							    			<span class="panel-title">
+							    				<label for="trainingAutocomplete">Select Trainings from list</label>
+							    			</span>
+							    		</div>
+						    			<div class="list-group-item panel panel-default panel-default-editable-list"></div>
+										<input data-role="none" type="text" id="trainingAutocomplete" autocomplete="off" class="form-control input-lg autocomplete mst-refine-entity-autocomplete" placeholder="Enter Training" />
+										<div class="autocomplete-container"></div>
+										<div id="editTrainingButtonContainer" class="row absolutelyPositionedDesktopEditSection">    			
+						    				<button data-role="none" id="editTrainingBtn" type="button" class="btn btn-primary mst-edit-entity-button">
+												<span>Save</span>
+											</button>
+											<a data-role="none" id="cancelTrainingEdit" class="mst-edit-entity-cancel" href="javascript:void(0);">Cancel</a>
+										</div>
+						    		</div>
+						    		
+						    		<div id="skillsSectionAnchor" class="hidden-md-up hidden-mobile-anchor"></div>
+						    		<div id="skillsSection" class="mst-translation-entity-view" data-show-on-entity-edit='false'>
+							    		<div class="panel-heading"><span class="panel-title weighted-title">Civilian Skills</span><span id="skillCount"></span></div>
+							    		<div class="list-group-item panel panel-default mst-subentity-panel mst-skills-panel col-xs-12 hidden-sm-down">
+							    			<div class="panel-content">
+							    				<div id="skillList" class="mst-refine-entity-list"></div>
+							    			</div>
+							    		</div>
+						    		</div>
+						    		
+					    		</div>
+				    		</div>
+				    	</div>
+			    		<div id="refineSearchBtnDesktopContainer" class="hidden-sm-down mst-container mst-refine-button-container" data-show-on-entity-edit='false'>
+					   		<button data-role="none" id="refineSearchBtn" class="refine-container-content btn btn-primary btn-block" type="button">
+					   			Refresh Results
+					   			<i class="material-icons glyphicon-refresh" style="display:none">autorenew</i>
+					   		</button>
+					   	</div>
+					   	<div class="hidden-md-up" id="refineSearchBtnMobileContainerPadding"></div>
+					   	<div id="refineSearchBtnMobileContainer" 
+					   		 class="hidden-md-up mst-container mst-refine-button-container mst-refine-button-container-mobile" 
+					   		 data-show-on-entity-edit='false'>
+					   		<button data-role="none" data-role-mobile="true" id="refineSearchBtnMobile" class="refine-container-content btn btn-primary btn-block" type="button">
+					   			Refresh
+					   			<i class="material-icons glyphicon-refresh" style="display:none">autorenew</i>
+					   		</button>
+					   		<a id="cancelMobileRefine" href="javascript:void(0);">Cancel</a>
+					   	</div>
+					   	<div class="hidden-md-up" id="mobileRefinePadding"></div>
+			          </div>
+		       		</div>
+				</div>
+	          <div id="mstResultContainer" class="col-xs-12 col-md-8 container" 
+	          	   data-show-on-refine="false">
+		        <div id="pageInfoRow" class="row">
+		        	<div class="col-xs-12">
+		        		<p class="pageInfo col-xs-12 hidden-sm-down" id="dPageInfo">
+		        			<span class="boldHead numTotal"></span>
+		        			<span class="boldHead"> Equivalent Civilian Jobs</span>
+		        		</p>
+		        		<p class="pageInfo col-xs-12 hidden-md-up" 
+		        		   id="mPageInfo" 
+		        		   data-show-on-entity-edit='never' 
+		        		   data-show-on-mos-edit="false">
+		        			<span class="boldHead numTotal"></span>
+		        			<span class="boldHead"> Equivalent Civilian Jobs</span>
+		        		</p>
+		       		</div>
+				</div>
+		        <div class="row">
+		        	<div id="dGrid" class="jobs-grid col-xs-12 hidden-sm-down"></div>
+		        	<div id="mGrid" 
+		        		 class="jobs-grid col-xs-12 hidden-md-up" 
+		        		 data-show-on-entity-edit='never' 
+		        		 data-show-on-mos-edit="false"></div>
+				</div>
+				<div id="mst-empty"></div>
+		        <div class="row">
+	            	<div id="mPaginator" class="col-xs-12">
+	            		<a data-role="none" 
+	            		   id="mViewMore" 
+	            		   class="viewMore hidden-md-up"
+	            		   data-show-on-entity-edit='never' 
+		        		   data-show-on-mos-edit="false">View More</a>
+	            		<a data-role="none" 
+	            		   id="dDiewMore" 
+	            		   class="viewMore hidden-sm-down">View More</a>
+	            	</div>
+				</div>
+	          </div>
+	        </div>
+	      </div>
+			
+			
+      </div>
+    </div>
+	</body>
+</html>
