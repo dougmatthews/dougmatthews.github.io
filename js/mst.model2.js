@@ -78,7 +78,7 @@ MST.Model.Profile = Backbone.Model.extend({
 		$this.set("translationInProgress", false);
 		$this.set("location", "");
 		$this.set("keyword", "");
-		$this.set("sortBy", "");
+		$this.set("sortBy", "relevance");
 		$this.set("isAsc", true);
 		$this.set("page", 0)
 
@@ -254,13 +254,6 @@ MST.Model.Profile = Backbone.Model.extend({
 		};
 		return refineData;
 	},
-	getDefaultSortBy : function() {
-		if(MST.Jobs && $.isFunction(MST.Jobs.getDefaultSortBy)) {
-			return MST.Jobs.getDefaultSortBy();
-		} else {
-			return "relevance";
-		}
-	},
 	getDefaultAsc : function() {
 		if(MST.Jobs && $.isFunction(MST.Jobs.getDefaultIsAsc)) {
 			return MST.Jobs.getDefaultIsAsc();
@@ -292,7 +285,7 @@ MST.Model.Profile = Backbone.Model.extend({
 	getTranslateToJobsData : function() {
 		return {
 			mosIds : this.getMosIDs(),
-			skillMatchWrappers : [],
+			skillMatchWrappers : [], // legacy, send empty array
 			tenantId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData()
 		};
@@ -303,7 +296,7 @@ MST.Model.Profile = Backbone.Model.extend({
 			tenantId : MST.ENV.App.getAppId(),
 			filterData : this.getRefineFormData(),
 			occupationMatchMap : {}, // legacy, send empty obj
-			skillMatchWrappers : []
+			skillMatchWrappers : [] // legacy, send empty array
 		};
 	},
 	translateToSkillsJobs : function() {
